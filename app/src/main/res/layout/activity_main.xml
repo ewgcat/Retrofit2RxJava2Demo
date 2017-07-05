@@ -10,14 +10,14 @@
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name"
+        android:text="zhusha5"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="password"
+        android:text="hengte@2016"
         android:inputType="textPassword" />
 
     <Button
