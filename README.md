@@ -2,4 +2,15 @@
 
 # Retrofit2RxJava2Demo
 
-将之前封装的Retrofit2+RxJava+RxAndroid 更改为Retrofit2+RxJava2+RxAndroid ,供参考学习
+###集成步骤
+
+allprojects {
+            repositories {
+                 google()
+                 jcenter()
+                 maven{  url "https://ewgcat.bintray.com/utils/"}
+ }
+ 
+ dependencies {
+     api 'com.lsh.retrofit2:retrofit:1.0.3'
+}
