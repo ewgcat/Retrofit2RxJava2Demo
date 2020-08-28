@@ -2,7 +2,8 @@ package com.lishuaihua.retrofit.net.interceptor
 
 import android.content.Context
 import android.util.Log
-import com.lishuaihua.retrofit.net.utils.NetworkUtil
+import com.lishuaihua.retrofit.net.networkutil.NetworkUtil
+import okhttp3.CacheControl
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
@@ -12,7 +13,7 @@ class CaheInterceptor(private val context: Context) : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
-        return if (NetworkUtil.hasNetwork(context)) {
+        return if (NetworkUtil.isNetworkAvailable(context)) {
             val response = chain.proceed(request)
             // read from cache for 60 s
             val maxAge = 60
@@ -26,7 +27,7 @@ class CaheInterceptor(private val context: Context) : Interceptor {
         } else {
             Log.i("CaheInterceptor", " no network load cahe")
             request = request.newBuilder()
-                    .cacheControl(FORCE_CACHE)
+                    .cacheControl(CacheControl.FORCE_CACHE)
                     .build()
             val response = chain.proceed(request)
             //set cahe times is 3 days

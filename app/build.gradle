@@ -35,14 +35,12 @@ dependencies {
     api 'androidx.annotation:annotation:1.0.0'
     api 'androidx.appcompat:appcompat:1.0.2'
     api 'com.android.support.constraint:constraint-layout:1.0.2'
-//    api project(path: ':retrofit')
+    api project(path: ':retrofit')
     api 'androidx.lifecycle:lifecycle-livedata-ktx:2.1.0'
     api 'androidx.core:core-ktx:1.0.2'
     api 'com.squareup.okhttp3:okhttp:3.8.0'
-    api 'com.lsh.retrofit2:retrofit:1.0.3'
     api 'io.reactivex.rxjava2:rxandroid:2.1.0'
     api 'io.reactivex.rxjava2:rxjava:2.2.3'
     //kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
