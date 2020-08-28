@@ -1,31 +1,27 @@
-package com.example.myapplication;
+package com.example.myapplication
 
-import android.util.Base64;
+import android.util.Base64
+import org.json.JSONException
+import org.json.JSONObject
 
-import org.json.JSONException;
-import org.json.JSONObject;
+class LoginPostBody(username: String?, password: String, clientId: String?) {
+    private val mJsonParmas = JSONObject()
+    private val mContentParam = JSONObject()
+    fun getmContentParam(): JSONObject {
+        return mContentParam
+    }
 
-
-public class LoginPostBody {
-    private JSONObject mJsonParmas = new JSONObject();
-    private JSONObject mContentParam = new JSONObject();
-    public  LoginPostBody(String username,String password,String clientId){
+    init {
         try {
-            mJsonParmas.put("username", username);
-            mJsonParmas.put("password", Base64.encodeToString(password.getBytes(), Base64.DEFAULT));
-            mJsonParmas.put("platform", 1);
-            mJsonParmas.put("clientId",clientId);
-            mContentParam.put("tranCode", 1017);
-            mContentParam.put("isEncryption", 0);
-            mContentParam.put("bizContent", mJsonParmas);
-        } catch (JSONException e) {
-            e.printStackTrace();
+            mJsonParmas.put("username", username)
+            mJsonParmas.put("password", Base64.encodeToString(password.toByteArray(), Base64.DEFAULT))
+            mJsonParmas.put("platform", 1)
+            mJsonParmas.put("clientId", clientId)
+            mContentParam.put("tranCode", 1017)
+            mContentParam.put("isEncryption", 0)
+            mContentParam.put("bizContent", mJsonParmas)
+        } catch (e: JSONException) {
+            e.printStackTrace()
         }
-
     }
-
-    public JSONObject getmContentParam() {
-        return mContentParam;
-    }
-
 }

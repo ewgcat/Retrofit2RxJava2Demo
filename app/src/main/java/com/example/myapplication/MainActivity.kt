@@ -40,16 +40,14 @@ class MainActivity : AppCompatActivity() {
         dialog!!.show()
         val loginPostBody = LoginPostBody(name, password, "11")
         HttpManager.postLogin(loginPostBody.getmContentParam().toString(), object : BaseObserver<JSONObject>(lifecycle) {
-            override fun onFail(error: String, code: Int) {
-                Log.i("MainActivity", "onFail $error")
+            override fun onFail(msg: String?, code: Int) {
                 dialog!!.dismiss()
             }
 
-            override fun onSuccess(jsonObject: JSONObject) {
-                Log.i("MainActivity", "onSuccess $jsonObject")
-                tv!!.text = "请求的返回  $jsonObject"
+            override fun onSuccess(result: JSONObject) {
                 dialog!!.dismiss()
             }
+
         })
     }
 }

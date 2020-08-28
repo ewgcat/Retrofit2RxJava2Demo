@@ -9,5 +9,5 @@ import retrofit2.http.POST
 interface LoginApiService {
     @FormUrlEncoded
     @POST("http://wechat.kai-men.cn/pmsSrv/api/api!gateway.action")
-    fun login(@Field("reqStr") jsonStr: String?): Observable<JSONObject?>?
+    fun login(@Field("reqStr") jsonStr: String): Observable<JSONObject>
 }

@@ -6,6 +6,7 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import org.json.JSONArray
 import org.json.JSONObject
@@ -15,7 +16,7 @@ import org.json.JSONObject
 class HttpManager {
 
     companion object {
-        private val apiService = RetrofitClient.mRetrofit.create(LoginApiService::class.java)
+        private val apiService = RetrofitClient.mRetrofit!!.create(LoginApiService::class.java)
 
         /**
          * 执行请求操作
@@ -37,7 +38,7 @@ class HttpManager {
          * @param data 请求参数
          */
         private fun getBaseParams(data: JSONObject?): RequestBody {
-            return RequestBody.create(MediaType.parse("application/json"), data.toString())
+            return RequestBody.create("application/json".toMediaTypeOrNull(), data.toString())
 
         }
 
@@ -46,7 +47,7 @@ class HttpManager {
          * @param data 请求参数
          */
         private fun getBaseParams(data: JSONArray?): RequestBody {
-            return RequestBody.create(MediaType.parse("application/json"), data.toString())
+            return RequestBody.create("application/json".toMediaTypeOrNull(), data.toString())
         }
 
 
@@ -61,7 +62,7 @@ class HttpManager {
          */
         open fun postLogin(param: String,  observer: Observer<JSONObject>) {
             val observable = apiService.login(param)
-            execute(observable, observer)
+            execute(observable , observer)
         }
 
 
