@@ -1,60 +1,54 @@
-package com.lishuaihua.retrofit.net.cookie;
+package com.lishuaihua.retrofit.net.cookie
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import okhttp3.Cookie
+import java.io.IOException
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
+import java.io.Serializable
 
-import okhttp3.Cookie;
-
-
-public class SerializableOkHttpCookies implements Serializable {
-
-    private transient final Cookie cookies;
-    private transient Cookie clientCookies;
-
-    public SerializableOkHttpCookies(Cookie cookies) {
-        this.cookies = cookies;
-    }
-
-    public Cookie getCookies() {
-        Cookie bestCookies = cookies;
+class SerializableOkHttpCookies(@field:Transient private val cookies: Cookie) : Serializable {
+    @Transient
+    private var clientCookies: Cookie? = null
+    fun getCookies(): Cookie {
+        var bestCookies = cookies
         if (clientCookies != null) {
-            bestCookies = clientCookies;
+            bestCookies = clientCookies as Cookie
         }
-        return bestCookies;
+        return bestCookies
     }
 
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        out.writeObject(cookies.name());
-        out.writeObject(cookies.value());
-        out.writeLong(cookies.expiresAt());
-        out.writeObject(cookies.domain());
-        out.writeObject(cookies.path());
-        out.writeBoolean(cookies.secure());
-        out.writeBoolean(cookies.httpOnly());
-        out.writeBoolean(cookies.hostOnly());
-        out.writeBoolean(cookies.persistent());
+    @Throws(IOException::class)
+    private fun writeObject(out: ObjectOutputStream) {
+        out.writeObject(cookies.name)
+        out.writeObject(cookies.value)
+        out.writeLong(cookies.expiresAt)
+        out.writeObject(cookies.domain)
+        out.writeObject(cookies.path)
+        out.writeBoolean(cookies.secure)
+        out.writeBoolean(cookies.httpOnly)
+        out.writeBoolean(cookies.hostOnly)
+        out.writeBoolean(cookies.persistent)
     }
 
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        String name = (String) in.readObject();
-        String value = (String) in.readObject();
-        long expiresAt = in.readLong();
-        String domain = (String) in.readObject();
-        String path = (String) in.readObject();
-        boolean secure = in.readBoolean();
-        boolean httpOnly = in.readBoolean();
-        boolean hostOnly = in.readBoolean();
-        boolean persistent = in.readBoolean();
-        Cookie.Builder builder = new Cookie.Builder();
-        builder = builder.name(name);
-        builder = builder.value(value);
-        builder = builder.expiresAt(expiresAt);
-        builder = hostOnly ? builder.hostOnlyDomain(domain) : builder.domain(domain);
-        builder = builder.path(path);
-        builder = secure ? builder.secure() : builder;
-        builder = httpOnly ? builder.httpOnly() : builder;
-        clientCookies =builder.build();
+    @Throws(IOException::class, ClassNotFoundException::class)
+    private fun readObject(`in`: ObjectInputStream) {
+        val name = `in`.readObject() as String
+        val value = `in`.readObject() as String
+        val expiresAt = `in`.readLong()
+        val domain = `in`.readObject() as String
+        val path = `in`.readObject() as String
+        val secure = `in`.readBoolean()
+        val httpOnly = `in`.readBoolean()
+        val hostOnly = `in`.readBoolean()
+        val persistent = `in`.readBoolean()
+        var builder = Cookie.Builder()
+        builder = builder.name(name)
+        builder = builder.value(value)
+        builder = builder.expiresAt(expiresAt)
+        builder = if (hostOnly) builder.hostOnlyDomain(domain) else builder.domain(domain)
+        builder = builder.path(path)
+        builder = if (secure) builder.secure() else builder
+        builder = if (httpOnly) builder.httpOnly() else builder
+        clientCookies = builder.build()
     }
 }

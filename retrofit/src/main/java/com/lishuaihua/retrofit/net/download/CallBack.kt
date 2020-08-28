@@ -1,14 +1,11 @@
-package com.lishuaihua.retrofit.net.download;
+package com.lishuaihua.retrofit.net.download
 
+import com.lishuaihua.retrofit.net.download.DownLoadManager
 
-public abstract class CallBack {
-    public void onStart(){}
-
-    public void onCompleted(){}
-
-    abstract public void onError(Throwable e);
-
-    public void onProgress(long fileSizeDownloaded){}
-
-    abstract public void onSucess(String path, String name, long fileSize);
+abstract class CallBack {
+    fun onStart() {}
+    fun onCompleted() {}
+    abstract fun onError(e: Throwable?)
+    fun onProgress(fileSizeDownloaded: Long) {}
+    abstract fun onSucess(path: String?, name: String?, fileSize: Long)
 }

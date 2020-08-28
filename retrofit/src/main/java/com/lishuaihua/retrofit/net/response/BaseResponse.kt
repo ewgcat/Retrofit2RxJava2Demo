@@ -1,41 +1,18 @@
-package com.lishuaihua.retrofit.net.response;
-
+package com.lishuaihua.retrofit.net.response
 
 /**
  * 网络返回基类 支持泛型
  */
-public class BaseResponse<T> {
+class BaseResponse<T> {
+    var code = 0
+    var msg: String? = null
+    var data: T? = null
+        private set
 
-    private int code;
-    private String msg;
-    private T data;
-
-    public int getCode() {
-        return code;
+    fun setData(data: T) {
+        this.data = data
     }
 
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
-
-    public boolean isOk() {
-        return code == 0;
-    }
-
+    val isOk: Boolean
+        get() = code == 0
 }

@@ -25,9 +25,6 @@ allprojects {
         google()
         maven { url "https://ewgcat.bintray.com/utils/" }
     }
-    tasks.withType(Javadoc) {
-        options.addStringOption('Xdoclint:none', '-quiet')
-    }
 }
 
 

@@ -1,8 +1,6 @@
-package com.lishuaihua.retrofit.net.response;
+package com.lishuaihua.retrofit.net.response
 
-
-public interface ResultCallBack<T> {
-    void onSuccess(T result);
-
-    void onFail(String msg, int code);
+interface ResultCallBack<T> {
+    fun onSuccess(result: T)
+    fun onFail(msg: String?, code: Int)
 }

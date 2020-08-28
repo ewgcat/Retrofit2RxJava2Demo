@@ -1,30 +1,27 @@
-package com.lishuaihua.retrofit.net.converterfactory;
+package com.lishuaihua.retrofit.net.converterfactory
 
-import android.util.Log;
+import android.util.Log
+import okhttp3.ResponseBody
+import org.json.JSONException
+import org.json.JSONObject
+import retrofit2.Converter
+import java.io.IOException
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import okhttp3.ResponseBody;
-import retrofit2.Converter;
-
-
-public class JSONObjectConverter implements Converter<ResponseBody, JSONObject> {
-
-    public static final JSONObjectConverter INSTANCE = new JSONObjectConverter();
-
-    @Override
-    public JSONObject convert(ResponseBody responseBody) throws IOException {
-        JSONObject jsonObject = null;
+class JSONObjectConverter : Converter<ResponseBody, JSONObject?> {
+    override fun convert(responseBody: ResponseBody): JSONObject? {
+        var jsonObject: JSONObject? = null
         try {
-            String result = responseBody.string();
-            jsonObject = new JSONObject(result);
-            return jsonObject;
-        } catch (JSONException e) {
-            Log.i("JSONObjectConverter", e.toString());
+            val result = responseBody.string()
+            jsonObject = JSONObject(result)
+            return jsonObject
+        } catch (e: JSONException) {
+            Log.i("JSONObjectConverter", e.toString())
         }
-        return jsonObject;
+        return jsonObject
+    }
+
+    companion object {
+        @JvmField
+        val INSTANCE = JSONObjectConverter()
     }
 }
