@@ -16,6 +16,8 @@ import javax.net.ssl.HostnameVerifier
 object RetrofitClient {
     var mRetrofit: Retrofit? = null
 
+  var mRetrofit: Retrofit? = null
+
     //初始化一般请求客户端
     fun init(context: Context?, baseUrl: String?, rawId: Int, builder: OkHttpClient.Builder, isDebug: Boolean): Retrofit? {
         if (mRetrofit == null) {
@@ -26,8 +28,10 @@ object RetrofitClient {
                 //设置 Debug Log 模式
                 builder.addInterceptor(loggingInterceptor)
             }
-            HTTPSCerUtils.setCertificate(context, builder, rawId)
-            builder.hostnameVerifier(HostnameVerifier { hostname, session -> true })
+            if (rawId!=0){
+                HTTPSCerUtils.setCertificate(context, builder, rawId)
+                builder.hostnameVerifier(HostnameVerifier { hostname, session -> true })
+            }
             builder.connectTimeout(5, TimeUnit.SECONDS)
             builder.readTimeout(5, TimeUnit.SECONDS)
             builder.writeTimeout(5, TimeUnit.SECONDS)
@@ -37,7 +41,7 @@ object RetrofitClient {
             mRetrofit = Retrofit.Builder()
                     .client(okHttpClient)
                     .addConverterFactory(ScalarsConverterFactory.create())
-                    .addConverterFactory(create())
+                    .addConverterFactory(JSONObjectConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .baseUrl(baseUrl)
@@ -45,4 +49,5 @@ object RetrofitClient {
         }
         return mRetrofit
     }
+  
 }
