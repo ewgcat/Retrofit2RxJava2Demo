@@ -2,6 +2,7 @@ package com.lishuaihua.retrofit.net.client
 
 import android.content.Context
 import android.util.Log
+import com.lishuaihua.retrofit.net.converterfactory.JSONObjectConverterFactory
 import com.lishuaihua.retrofit.net.converterfactory.JSONObjectConverterFactory.Companion.create
 import com.lishuaihua.retrofit.net.httpsfactroy.HTTPSCerUtils
 import okhttp3.OkHttpClient
@@ -14,7 +15,6 @@ import java.util.concurrent.TimeUnit
 import javax.net.ssl.HostnameVerifier
 
 object RetrofitClient {
-    var mRetrofit: Retrofit? = null
 
   var mRetrofit: Retrofit? = null
 
